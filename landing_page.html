@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Study Smarter!</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- CSS only Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
+        <style>
+            .img-container {
+                position: relative;
+                text-align: center;
+                height: 500px;
+                width: 100%;
+                padding: 0;
+                color: white;
+            }
+            .img-size {
+                width: 100%;
+                max-height: 100%; 
+                max-width: 100%; 
+                object-fit: fill;
+            }
+            .h1-centered {
+                position: absolute;
+                top: 40%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .btn-centered {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .box-btm {
+                background-color: white;
+                height: auto;
+                width: 100%;
+                padding: 50px 0 50px 0;
+            }
+
+            .flex-center {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            } 
+
+            /*Add Hover*/
+            .card { 
+                background-color: cornflowerblue;
+                width: 300px;
+                height: 200px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="row" style="width: 80;">
+            <div class="col-12">
+                
+                <!--IMAGE NEED TO BE CROPPED-->
+                <div class="img-container">
+                    <img class="img-size" src="images/landing-image-3.jpg" alt="landing image">
+                    <div class="h1-centered"><h1>STUDY BETTER</h1></div>
+                    <div class="btn-centered"><button type="button" class="btn btn-light">Learn How</button></div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="box-btm flex-center">
+                    <h1>IMPROVE YOUR STUDY EXPERIENCE WITH THESE TIPS</h1>
+                    <h4>"You do not rise to the level of your goals, you fall to the level of yours systems" - James Clear</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="flex-center">
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <a href="/">
+                                <img class="card" src="/" alt="POMODORO">
+                                <h4>POMODORO TIMER</h4>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="/">
+                                <img class="card" src="/" alt="NOTION">
+                                <h4>NOTION</h4>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="/">
+                                <img class="card" src="/" alt="MUSIC">
+                                <h4>MUSIC</h4>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="/">
+                                <img class="card" src="/" alt="ENVIRONMENT">
+                                <h4>ENVIRONMENT</h4>
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="/">
+                                <img class="card" src="/" alt="TECHNIQUE">
+                                <h4>TECHNIQUE</h4>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        
+        <!--<script src="" async defer></script>-->
+    </body>
+</html>
