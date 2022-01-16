@@ -1,2 +1,14 @@
 /*UNIVERSAL ONLY*/
 /*eg: navbar properties*/
+a, a:hover, a:active, a:visited { 
+    color: white; 
+    text-decoration: none;
+}
+
+.invalid-style {
+    color: red;
+}
+.footer-card {
+    background-color: #758BFC;
+    color: white;
+}

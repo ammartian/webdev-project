@@ -1,3 +1,14 @@
+<?php
+// Initialize the session
+session_start();
+
+//Check if the user is logged in, if not then redirect him to login page
+//if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    //header("location: login.php");
+    //exit;
+//}
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -64,7 +75,7 @@
                                 </a>
                             </li>
                             <li class="nav-item ms-lg-5 me-lg-5">
-                                <a href="notion.html" class="navbar-brand">
+                                <a href="notion.php" class="navbar-brand">
                                     <img src="images/notion icon.png" width="40px" height="40px" alt="">
                                 </a>
                             </li>
@@ -85,12 +96,20 @@
                             </li>
                         </ul>
                         <ul class="navbar-nav">
+                            <?php if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){ ?>
+                            <li class="nav-items me-lg-5">
+                                <a href="login.php" class="nav-link"><b>Login</b></a>
+                            </li>
+                            <?php } ?>
+
+                            <?php if (isset($_SESSION["role"]) && ($_SESSION["role"] == "admin")){ ?> 
                             <li class="nav-item ms-lg-5 me-lg-5">
-                                <a href="/" class="nav-link"><b>Register</b></a>
+                                <a href="register.php" class="nav-link"><b>Create Admin</b></a>
                             </li>
                             <li class="nav-items me-lg-5">
-                                <a href="/" class="nav-link"><b>Login</b></a>
+                                <a href="logout.php" class="nav-link"><b>Logout</b></a>
                             </li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </nav>  
@@ -210,6 +229,7 @@
             </div>
         </div>
 
+        <!-- Templates -->
         <div class="row">
             <div class="col-12">
                 <div class="container-fluid d-flex mt-5">
@@ -248,6 +268,14 @@
                 </div>
 
                 
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 text-center footer-card" style="padding: 30px 0px 20px 0px; margin-top: 80px;">
+                <a href="feedback.php">
+                    <h4><b>Suggestion<br>or<br>feedback?</b></h4>
+                </a>
             </div>
         </div>
         
