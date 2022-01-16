@@ -3,10 +3,101 @@
 session_start();
 
 //Check if the user is logged in, if not then redirect him to login page
-//if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    //header("location: login.php");
-    //exit;
-//}
+// if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+//     header("location: login.php");
+//     exit;
+// }
+
+// Include config file
+require_once "config.php";
+
+// Define variables and initialize with empty values
+$comment = $name = $email = "";
+$comment_err = $name_err = $email_err = "";
+
+
+// Processing form data when form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+    // Validate comment
+    if(empty(trim($_POST["comment"]))){
+        $comment_err = "Please enter a comment or feedback.";
+    } else{
+        // Prepare a select statement
+        $sql = "SELECT comment_ID FROM comment WHERE comment_comment = ?";
+        
+        if($stmt = mysqli_prepare($link, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_comment);
+            
+            // Set parameters
+            $param_comment = trim($_POST["comment"]);
+            
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                /* store result */
+                mysqli_stmt_store_result($stmt);
+                $comment = trim($_POST["comment"]);
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+        }
+    }
+
+    // Validate name
+    if(empty(trim($_POST["name"]))){
+        $name_err = "Please enter your name.";     
+    } else{
+        $name = trim($_POST["name"]);
+    }
+
+
+    // Validate email
+    if(empty(trim($_POST["email"]))){
+        $email_err = "Please enter your email.";     
+    } else{
+        $email = trim($_POST["email"]);
+    }
+
+
+    // Check input errors before inserting in database
+    if(empty($comment_err) && empty($name_err) && empty($email_err)){
+        
+        // Prepare an insert statement
+        $sql = "INSERT INTO comment (comment_comment, comment_name, comment_mail) VALUES (?, ?, ?)";
+        
+        if($stmt = mysqli_prepare($link, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "sss", $param_comment, $param_name, $param_email);
+            
+            // Set parameters
+            $param_comment = $comment;
+            $param_name = $name;
+            $param_email = $email;
+            
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                // Redirect to login page
+                header("location: feedback.php");
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
+
+    function getComments($link) {
+        $sql = "SELECT * FROM comment";
+        $result = $link->query($sql);
+        $row = $result->fetch_assoc();
+        $row['comment_comment'];
+    }
+
+            
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -60,6 +151,9 @@ session_start();
                 background-color: black;
                 border-radius: 4px;
                 margin-top: 15px;
+            }
+            .feedback-margin {
+                margin-top: 50px;
             }
         </style>
     </head>
@@ -131,18 +225,51 @@ session_start();
                         <h1><b>Leave a feedback or comment</b></h1>
                         <p>Help us improve our content!</p>
 
-                        <form class="card card-shadow">
-                            <label for="comment"><h4><b>Feedback</b></h4></label>
-                            <textarea  class="comment-box" id="comment" name="comment" placeholder="Enter your feedback or comment!"></textarea>
+                        <div class="card card-shadow">
 
-                            <label for="name"><b>Name</b></label>
-                            <input  class="input-box" type="text" name="name" placeholder="Enter your name">
+                        <!-- Input -->
+                            <div>
+                                <form class="" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                                    <label for="comment"><h4><b>Feedback</b></h4></label>
+                                    <textarea  class="comment-box" value="<?php echo $comment; ?>" id="comment" name="comment" placeholder="Enter your feedback or comment!"></textarea>
 
-                            <label for="email"><b>Email</b></label>
-                            <input class="input-box" type="email" name="email" placeholder="Enter your email">
+                                    <label for="name"><b>Name</b></label> <br>
+                                    <input  class="input-box" value="<?php echo $name; ?>" type="text"  name="name" placeholder="Enter your name"> <br>
 
-                            <button class="btn-style" type="submit"><b>Submit</b></button>
-                        </form>
+                                    <label for="email"><b>Email</b></label> <br>
+                                    <input class="input-box" value="<?php echo $email; ?>" type="email" name="email" placeholder="Enter your email"> <br>
+
+                                    <button class="btn-style" type="submit"><b>Submit</b></button>
+                                </form>
+                            </div>
+                            
+                        <!-- Outpu -->
+                            <div class="feedback-margin">
+                                <h4><b> Previous Feedbacks</b></h4>
+                                <hr>
+                                    <div class="group">
+                                        <?php
+                                            $sql = "SELECT * FROM comment";
+                                            $result = $link->query($sql);
+                                            
+                                            if($result->num_rows > 0) {
+                                                while($row = $result->fetch_assoc()) {
+                                                    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+                                                        echo "<b>". $row["comment_name"]. "</b> <br> <b>". $row["comment_mail"]. "</b> <br>". $row["comment_comment"] . "<br><hr>";
+                                                    }
+                                                    if (isset($_SESSION["role"]) && ($_SESSION["role"] == "admin")){
+                                                        echo "<b>". $row["comment_name"]. "</b> <br> <b>". $row["comment_mail"]. "</b> <br>". $row["comment_comment"] . "<br><a href='delete.php?comment_ID=". $row["comment_ID"]."'><button type='button' class='btn btn-danger'>Delete</button></a><hr>";
+                                                    }
+                                                }
+                                            } else {
+                                                echo "0 Results";
+                                            }
+                                        ?>
+                                    </div> 
+                                
+                            </div>
+
+                        </div>
                         
                     </div>
 
