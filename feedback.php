@@ -160,60 +160,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <body>
         
         <!-- Navbar -->
-        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-white">
-            <div class="container-fluid">
-                <ul class="navbar-nav">
-                    <li class="nav-item ms-lg-5">
-                        <a href="landing.html" class="navbar-brand">
-                            <img src="images/Home.png" width="40px" height="40px" alt="">
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item ms-lg-5 me-lg-5">
-                        <a href="/" class="navbar-brand">
-                            <img src="images/pomodoro icon.png" width="40px" height="40px" alt="">
-                        </a>
-                    </li>
-                    <li class="nav-item ms-lg-5 me-lg-5">
-                        <a href="notion.php" class="navbar-brand">
-                            <img src="images/notion icon.png" width="40px" height="40px" alt="">
-                        </a>
-                    </li>
-                    <li class="nav-item ms-lg-5 me-lg-5">
-                        <a href="/" class="navbar-brand">
-                            <img src="images/music icon.png" width="50px" height="50px" alt="">
-                        </a>
-                    </li>
-                    <li class="nav-item ms-lg-5 me-lg-5">
-                        <a href="/" class="navbar-brand">
-                            <img src="images/environment icon.png" width="40px" height="40px" alt="">
-                        </a>
-                    </li>
-                    <li class="nav-item ms-lg-5 me-lg-5">
-                        <a href="/" class="navbar-brand">
-                            <img src="images/techniques icon.png" width="40px" height="40px" alt="">
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <?php if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){ ?>
-                    <li class="nav-items me-lg-5">
-                        <a href="login.php" class="nav-link"><b>Login</b></a>
-                    </li>
-                    <?php } ?>
-
-                    <?php if (isset($_SESSION["role"]) && ($_SESSION["role"] == "admin")){ ?> 
-                    <li class="nav-item ms-lg-5 me-lg-5">
-                        <a href="register.php" class="nav-link"><b>Create Admin</b></a>
-                    </li>
-                    <li class="nav-items me-lg-5">
-                        <a href="logout.php" class="nav-link"><b>Logout</b></a>
-                    </li>
-                    <?php } ?>
-                </ul>
-            </div>
-        </nav>  
+        <?php include "navbar.php"; ?>
         <!-- Navbar -->
 
         <div class="row">
@@ -234,10 +181,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                     <textarea  class="comment-box" value="<?php echo $comment; ?>" id="comment" name="comment" placeholder="Enter your feedback or comment!"></textarea>
 
                                     <label for="name"><b>Name</b></label> <br>
-                                    <input  class="input-box" value="<?php echo $name; ?>" type="text"  name="name" placeholder="Enter your name"> <br>
+                                    <input  class="input-box" value="<?php echo $name; ?>" type="text"  name="name" placeholder="Enter your name" required> <br>
 
                                     <label for="email"><b>Email</b></label> <br>
-                                    <input class="input-box" value="<?php echo $email; ?>" type="email" name="email" placeholder="Enter your email"> <br>
+                                    <input class="input-box" value="<?php echo $email; ?>" type="email" name="email" placeholder="Enter your email" required> <br>
 
                                     <button class="btn-style" type="submit"><b>Submit</b></button>
                                 </form>

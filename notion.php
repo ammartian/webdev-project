@@ -2,11 +2,6 @@
 // Initialize the session
 session_start();
 
-//Check if the user is logged in, if not then redirect him to login page
-//if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    //header("location: login.php");
-    //exit;
-//}
 ?>
 
 <!DOCTYPE html>
@@ -58,62 +53,9 @@ session_start();
     </head>
     <body>
         
-        <!-- Navbar -->
-                <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-white">
-                    <div class="container-fluid">
-                        <ul class="navbar-nav">
-                            <li class="nav-item ms-lg-5">
-                                <a href="landing.html" class="navbar-brand">
-                                    <img src="images/Home.png" width="40px" height="40px" alt="">
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav">
-                            <li class="nav-item ms-lg-5 me-lg-5">
-                                <a href="/" class="navbar-brand">
-                                    <img src="images/pomodoro icon.png" width="40px" height="40px" alt="">
-                                </a>
-                            </li>
-                            <li class="nav-item ms-lg-5 me-lg-5">
-                                <a href="notion.php" class="navbar-brand">
-                                    <img src="images/notion icon.png" width="40px" height="40px" alt="">
-                                </a>
-                            </li>
-                            <li class="nav-item ms-lg-5 me-lg-5">
-                                <a href="/" class="navbar-brand">
-                                    <img src="images/music icon.png" width="50px" height="50px" alt="">
-                                </a>
-                            </li>
-                            <li class="nav-item ms-lg-5 me-lg-5">
-                                <a href="/" class="navbar-brand">
-                                    <img src="images/environment icon.png" width="40px" height="40px" alt="">
-                                </a>
-                            </li>
-                            <li class="nav-item ms-lg-5 me-lg-5">
-                                <a href="/" class="navbar-brand">
-                                    <img src="images/techniques icon.png" width="40px" height="40px" alt="">
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav">
-                            <?php if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){ ?>
-                            <li class="nav-items me-lg-5">
-                                <a href="login.php" class="nav-link"><b>Login</b></a>
-                            </li>
-                            <?php } ?>
 
-                            <?php if (isset($_SESSION["role"]) && ($_SESSION["role"] == "admin")){ ?> 
-                            <li class="nav-item ms-lg-5 me-lg-5">
-                                <a href="register.php" class="nav-link"><b>Create Admin</b></a>
-                            </li>
-                            <li class="nav-items me-lg-5">
-                                <a href="logout.php" class="nav-link"><b>Logout</b></a>
-                            </li>
-                            <?php } ?>
-                        </ul>
-                    </div>
-                </nav>  
         <!-- Navbar -->
+        <?php include "navbar.php"; ?>
         
         <!-- Notion landing -->
         <div class="row">
@@ -271,13 +213,7 @@ session_start();
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12 text-center footer-card" style="padding: 30px 0px 20px 0px; margin-top: 80px;">
-                <a href="feedback.php">
-                    <h4><b>Suggestion<br>or<br>feedback?</b></h4>
-                </a>
-            </div>
-        </div>
+        <?php include "footer.php"; ?>
         
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

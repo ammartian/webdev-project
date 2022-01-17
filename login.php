@@ -23,6 +23,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check if username is empty
     if(empty(trim($_POST["username"]))){
         $username_err = "Please enter username.";
+    }elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
+        $username_err = "Username can only contain letters, numbers, and underscores.";
     } else{
         $username = trim($_POST["username"]);
     }
@@ -150,60 +152,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <body>
         
         <!-- Navbar -->
-        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-white">
-            <div class="container-fluid">
-                <ul class="navbar-nav">
-                    <li class="nav-item ms-lg-5">
-                        <a href="landing.html" class="navbar-brand">
-                            <img src="images/Home.png" width="40px" height="40px" alt="">
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item ms-lg-5 me-lg-5">
-                        <a href="/" class="navbar-brand">
-                            <img src="images/pomodoro icon.png" width="40px" height="40px" alt="">
-                        </a>
-                    </li>
-                    <li class="nav-item ms-lg-5 me-lg-5">
-                        <a href="notion.php" class="navbar-brand">
-                            <img src="images/notion icon.png" width="40px" height="40px" alt="">
-                        </a>
-                    </li>
-                    <li class="nav-item ms-lg-5 me-lg-5">
-                        <a href="/" class="navbar-brand">
-                            <img src="images/music icon.png" width="50px" height="50px" alt="">
-                        </a>
-                    </li>
-                    <li class="nav-item ms-lg-5 me-lg-5">
-                        <a href="/" class="navbar-brand">
-                            <img src="images/environment icon.png" width="40px" height="40px" alt="">
-                        </a>
-                    </li>
-                    <li class="nav-item ms-lg-5 me-lg-5">
-                        <a href="/" class="navbar-brand">
-                            <img src="images/techniques icon.png" width="40px" height="40px" alt="">
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <?php if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){ ?>
-                    <li class="nav-items me-lg-5">
-                        <a href="login.php" class="nav-link"><b>Login</b></a>
-                    </li>
-                    <?php } ?>
-
-                    <?php if (isset($_SESSION["role"]) && ($_SESSION["role"] == "admin")){ ?> 
-                    <li class="nav-item ms-lg-5 me-lg-5">
-                        <a href="register.php" class="nav-link"><b>Create Admin</b></a>
-                    </li>
-                    <li class="nav-items me-lg-5">
-                        <a href="logout.php" class="nav-link"><b>Logout</b></a>
-                    </li>
-                    <?php } ?>
-                </ul>
-            </div>
-        </nav>  
+        <?php include "navbar.php"; ?>
         <!-- Navbar -->
 
         <div class="row">

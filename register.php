@@ -165,60 +165,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <body>
         
         <!-- Navbar -->
-        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-white">
-            <div class="container-fluid">
-                <ul class="navbar-nav">
-                    <li class="nav-item ms-lg-5">
-                        <a href="landing.html" class="navbar-brand">
-                            <img src="images/Home.png" width="40px" height="40px" alt="">
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item ms-lg-5 me-lg-5">
-                        <a href="/" class="navbar-brand">
-                            <img src="images/pomodoro icon.png" width="40px" height="40px" alt="">
-                        </a>
-                    </li>
-                    <li class="nav-item ms-lg-5 me-lg-5">
-                        <a href="notion.php" class="navbar-brand">
-                            <img src="images/notion icon.png" width="40px" height="40px" alt="">
-                        </a>
-                    </li>
-                    <li class="nav-item ms-lg-5 me-lg-5">
-                        <a href="/" class="navbar-brand">
-                            <img src="images/music icon.png" width="50px" height="50px" alt="">
-                        </a>
-                    </li>
-                    <li class="nav-item ms-lg-5 me-lg-5">
-                        <a href="/" class="navbar-brand">
-                            <img src="images/environment icon.png" width="40px" height="40px" alt="">
-                        </a>
-                    </li>
-                    <li class="nav-item ms-lg-5 me-lg-5">
-                        <a href="/" class="navbar-brand">
-                            <img src="images/techniques icon.png" width="40px" height="40px" alt="">
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <?php if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){ ?>
-                    <li class="nav-items me-lg-5">
-                        <a href="login.php" class="nav-link"><b>Login</b></a>
-                    </li>
-                    <?php } ?>
-
-                    <?php if (isset($_SESSION["role"]) && ($_SESSION["role"] == "admin")){ ?> 
-                    <li class="nav-item ms-lg-5 me-lg-5">
-                        <a href="register.php" class="nav-link"><b>Create Admin</b></a>
-                    </li>
-                    <li class="nav-items me-lg-5">
-                        <a href="logout.php" class="nav-link"><b>Logout</b></a>
-                    </li>
-                    <?php } ?>
-                </ul>
-            </div>
-        </nav>  
+        <?php include "navbar.php"; ?>
         <!-- Navbar -->
 
         <div class="row">
@@ -232,15 +179,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                         <form class="" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                             <label class="input-margin" for="username"><b>Username</b></label> <br>
-                            <input  class="input-box <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>" type="text" name="username" placeholder="Enter your username" required>
+                            <input  class="input-box <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>" 
+                            type="text" name="username" placeholder="Enter your username" required>
                             <span class="invalid-style"><?php echo $username_err; ?></span> <br>
 
                             <label class="input-margin" for="password"><b>Password</b></label> <br>
-                            <input class="input-box <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>" type="password" name="password" placeholder="Enter your password" required>
+                            <input class="input-box <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>" 
+                            type="password" name="password" placeholder="Enter your password" required>
                             <span class="invalid-style"><?php echo $password_err; ?></span> <br>
 
                             <label class="input-margin" for="confirm_password"><b>Confirm Password</b></label> <br>
-                            <input class="input-box <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>" type="password" name="confirm_password" placeholder="Confirm your password" required>
+                            <input class="input-box <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>" 
+                            type="password" name="confirm_password" placeholder="Confirm your password" required>
                             <span class="invalid-style"><?php echo $confirm_password_err; ?></span> <br>
 
                             <button class="btn-style" type="submit"><b>REGISTER</b></button>
